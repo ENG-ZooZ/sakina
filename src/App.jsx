@@ -4,7 +4,7 @@ import Azkar from "./components/Azkar";
 import PrayerTimes from "./components/PrayerTimes";
 import Tasbeeh from "./components/Tasbeeh"; 
 import Footer from "./components/Footer";
-import DeveloperButton from "./components/button"; // 👈 استدعاء الزرار الجديد هنا
+import DeveloperButton from "./components/Button"; // 👈 استدعاء الزرار الجديد هنا
 
 function App() {
   return (

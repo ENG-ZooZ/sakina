@@ -11,13 +11,11 @@ function PrayerTimes() {
 
   const intervalRef = useRef(null);
   const refreshRef = useRef(null);
-  const adhanAudio = useRef(new Audio("/adhan.mp3"));
-
-  useEffect(() => {
-    if ("Notification" in window) {
-      Notification.requestPermission();
-    }
-  }, []);
+useEffect(() => {
+  if ("Notification" in window && Notification.permission !== "granted") {
+    Notification.requestPermission().catch(() => {});
+  }
+}, []);
 
   const showNotification = (title, body) => {
     if (Notification.permission === "granted") {
@@ -106,16 +104,6 @@ function PrayerTimes() {
 
       if (diffMinutes === 10 && !playedAdhan) {
         showNotification(`⏳ قرب أذان ${next.name}`, "باقي 10 دقائق على الصلاة");
-      }
-
-      if (diff <= 0 && !playedAdhan) {
-        showNotification(`🕌 حان الآن أذان ${next.name}`, "قم للصلاة بارك الله فيك 🤍");
-        setTimeLeft("00:00:00");
-        adhanAudio.current.currentTime = 0;
-        adhanAudio.current.play().catch(() => {});
-        setPlayedAdhan(true);
-        getPrayerTimes();
-        return;
       }
 
       const hours = Math.floor(diff / 3600000);
